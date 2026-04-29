@@ -88,11 +88,13 @@ public class AuctionsController : ControllerBase
         auction.Item.Mileage = updateAuctionDto.Mileage ?? auction.Item.Mileage;
         auction.Item.Year = updateAuctionDto.Year ?? auction.Item.Year;
 
+        await _publishEndpoint.Publish(_mapper.Map<AuctionUpdated>(auction));
+
         var result = await _context.SaveChangesAsync() > 0;
 
-        if (result) return Ok();
+        if (result) return Ok(_mapper.Map<AuctionDto>(auction));
 
-        return BadRequest(result);
+        return BadRequest("Problem saving changes");
     }
 
     [Authorize]

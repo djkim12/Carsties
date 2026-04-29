@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
 using System.Net.ServerSentEvents;
 
@@ -10,6 +11,7 @@ public class Auction
     public string Seller {get; set;}
     public string Winner {get; set;}
     public int? SoldAmount {get; set;}
+    [Column("CurrentHighBid")]
     public int? CurrentHighBid {get; set;}
     public DateTime CreatedAt {get; set;} = DateTime.UtcNow;
     public DateTime UpdatedAt {get; set;} = DateTime.UtcNow;
